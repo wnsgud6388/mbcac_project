@@ -12,7 +12,7 @@
    -3주 : 뉴스
 
 ##아래의 코드를 참고하세요
-'''jsp
+```jsp
 <%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"
 	trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -31,3 +31,5 @@
 <c:set var="saved" value="${dao.addReply(board)}"/>
 
 {"saved":${saved},"bnum":${saved}}
+```
+<h3 style="background-color
