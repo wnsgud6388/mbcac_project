@@ -1,2 +1,94 @@
-123
-123123
+<%@page import="com.mbcac.board.BoardVO"%>
+<%@page import="java.util.List"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<jsp:useBean id="BoardDao" class="com.mbcac.board.BoardDAO"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>글 작성</title>
+<style>
+body{
+	background-image:url("/Java_Web/img/픽사.gif");
+	background-size : cover;
+}
+main h3 {width:fit-content; margin:0.3em auto;text-align:center;}
+div:last-child{text-align:center;}
+table {
+  border-collapse: collapse;
+  width: 1000px;
+  margin: 2rem auto;
+  background-color:white;
+}
+
+tr, td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+tr {
+  background-color: #79ECFF;
+}
+
+tbody tr:hover {
+  background-color: #d3d3d3;
+  opacity: 0.9;
+  cursor: pointer;
+}
+tr:last-child {
+	height:20em;
+}
+
+td:nth-child(even) {
+  background-color: #fff6f6;
+  width:20em;
+}
+
+
+
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+   function saveBoard() {
+      var serData = $('#replyForm').serialize();
+      //alert(serData);
+      $.ajax({
+         url:'replySave.jsp',
+         method:'post',
+         cache:false,
+         data:serData,
+         dataType:'json',
+         success:function(res) {
+        	
+            alert(res.saved ? '저장 성공':'저장 실패');
+            if(res.saved) location.href='boardDetail.jsp?bnum='+res.bnum;
+         },
+         error:function(xhr,status,err){
+            alert('에러:' + err);
+         }
+      });
+   }
+</script>
+</head>
+<body>
+<main>
+	<form id="replyForm">
+    <input type="hidden" name = "parent" value = "${param.parent}"/>
+    <h3>댓글 쓰기</h3>
+  
+      <table>
+    	 <tr><td>제목</td> <td><input type = "text" name="title"style="width:300px"></td></tr>
+    	 <tr><td>작성자</td> <td><input type = "text"name ="author"style="width:300px"></td></tr>
+    	 <tr><td>내용</td> <td><input type = "text" name="contents"style="text-align:center; width:600px; height:300px;"></td></tr>
+      </table>
+   
+      </form>
+   <div>
+   <a href = "boardList.jsp"><button>list</button></a>
+   <a href = "javascript:saveBoard()"><button>save</button></a>
+   </div>
+</main>
+</body>
+</html>
